@@ -25,8 +25,10 @@ function playRound(computerSelection, playerSelection) {
     
     if ((computerSelection == 'rock' && playerSelection == 'scissors' ) || (computerSelection == 'paper' && playerSelection == 'rock') || (computerSelection == 'scissors' && playerSelection == 'paper')) {
         result = `You lose! ${computerSelection} beats ${playerSelection}.`
+        loseCount++;
     } else if ((computerSelection == 'scissors' && playerSelection == 'rock' ) || (computerSelection == 'rock' && playerSelection == 'paper') || (computerSelection == 'paper' && playerSelection == 'scissors')) {
         result = `You win! ${playerSelection} beats ${computerSelection}.`
+        winCount++
     } else {
         result = "It's a tie!"
     }
@@ -34,10 +36,19 @@ function playRound(computerSelection, playerSelection) {
     return result;
 }
 
-// function game(){
+function game(){
 
-//     for (let i = 0; i < 5; i++) {
-        
-//     }
+    for (let i = 0; i < 5; i++) {
+        playerSelection = window.prompt('Rock, Paper, or Scissors?');
+        let result = playRound(computerPlay(),playerSelection);
+        console.log(result);
+    }
+    console.log(`The result is \n Player -> ${winCount} \n Computer -> ${loseCount} `);
 
-// }
+}
+
+let playerSelection = '';
+let winCount = 0;
+let loseCount = 0;
+
+game();
