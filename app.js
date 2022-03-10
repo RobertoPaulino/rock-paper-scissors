@@ -23,10 +23,14 @@ function playRound(computerSelection, playerSelection) {
     let result = '';
     playerSelection.toLowerCase();
     
-    if ((computerSelection == 'rock' && playerSelection == 'scissors' ) || (computerSelection == 'paper' && playerSelection == 'rock') || (computerSelection == 'scissors' && playerSelection == 'paper')) {
+    if ((computerSelection == 'rock' && playerSelection == 'scissors' ) || 
+            (computerSelection == 'paper' && playerSelection == 'rock') || 
+            (computerSelection == 'scissors' && playerSelection == 'paper')) {
         result = `You lose! ${computerSelection} beats ${playerSelection}.`
         loseCount++;
-    } else if ((computerSelection == 'scissors' && playerSelection == 'rock' ) || (computerSelection == 'rock' && playerSelection == 'paper') || (computerSelection == 'paper' && playerSelection == 'scissors')) {
+    } else if ((computerSelection == 'scissors' && playerSelection == 'rock' ) || 
+            (computerSelection == 'rock' && playerSelection == 'paper') || 
+            (computerSelection == 'paper' && playerSelection == 'scissors')) {
         result = `You win! ${playerSelection} beats ${computerSelection}.`
         winCount++
     } else {
@@ -39,7 +43,17 @@ function playRound(computerSelection, playerSelection) {
 function game(){
 
     for (let i = 0; i < 5; i++) {
-        playerSelection = window.prompt('Rock, Paper, or Scissors?');
+        
+        keepGoing = true;
+        while(keepGoing) {
+            playerSelection = window.prompt('Rock, Paper, or Scissors?');
+            playerSelection = playerSelection.toLowerCase();
+            if ((playerSelection == 'rock') || (playerSelection == 'scissors') || (playerSelection == 'paper')) {
+                keepGoing = false;
+            } else {
+                console.log('Wrong input, try again');
+            }
+        }
         let result = playRound(computerPlay(),playerSelection);
         console.log(result);
     }
@@ -52,3 +66,11 @@ let winCount = 0;
 let loseCount = 0;
 
 game();
+
+if (winCount > loseCount) {
+    console.log('you win the game')
+} else if (loseCount > winCount) {
+    console.log('you lose the game')
+} else {
+    console.log('its a tie')
+}
