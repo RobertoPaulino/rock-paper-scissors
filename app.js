@@ -10,7 +10,7 @@ function computerPlay () {
     } else if (choice == 0) {
         return 'scissors';
     } else {
-        console.log ('something went wrong with the computerPlay functtion.')
+        console.log ('something went wrong with the computerPlay function.')
     }
 
 }
@@ -40,24 +40,28 @@ function playRound(computerSelection, playerSelection) {
     return result;
 }
 
-function game(){
+function game(playerSelection){
 
-    for (let i = 0; i < 5; i++) {
-        
-        keepGoing = true;
-        while(keepGoing) {
-            playerSelection = window.prompt('Rock, Paper, or Scissors?');
-            playerSelection = playerSelection.toLowerCase();
-            if ((playerSelection == 'rock') || (playerSelection == 'scissors') || (playerSelection == 'paper')) {
-                keepGoing = false;
-            } else {
-                console.log('Wrong input, try again');
-            }
-        }
-        let result = playRound(computerPlay(),playerSelection);
-        console.log(result);
-    }
-    console.log(`The result is \n Player -> ${winCount} \n Computer -> ${loseCount} `);
+    let result = playRound(computerPlay(),playerSelection);
+    resultDiv.textContent = result;
+    scoreDiv.textContent = (`The result is \n Player -> ${winCount} \n Computer -> ${loseCount} `);
+
+
+if(winCount >= 5) {
+    winnerHeader.textContent = 'YOU WIN!';
+    resultDiv.textContent = '';
+    scoreDiv.textContent = '';
+    winCount = 0;
+    loseCount = 0;
+} else if (loseCount >= 5) {
+    winnerHeader.textContent = 'YOU LOSE!';
+    resultDiv.textContent = '';
+    scoreDiv.textContent = '';
+    winCount = 0;
+    loseCount = 0;
+} else {
+    winnerHeader.textContent = '';
+}
 
 }
 
@@ -65,12 +69,36 @@ let playerSelection = '';
 let winCount = 0;
 let loseCount = 0;
 
-game();
+let gamestate = '';
 
-if (winCount > loseCount) {
-    console.log('you win the game')
-} else if (loseCount > winCount) {
-    console.log('you lose the game')
-} else {
-    console.log('its a tie')
-}
+const rockBtn = document.querySelector('#rock-btn');
+rockBtn.addEventListener('click', function (e) {
+    game('rock');
+});
+
+const paperBtn = document.querySelector('#paper-btn');
+paperBtn.addEventListener('click', function (e) {
+    game('paper');
+});
+
+const scissorsBtn = document.querySelector('#scissors-btn');
+scissorsBtn.addEventListener('click', function (e) {
+    game('scissors');
+});
+
+const resultDiv = document.querySelector('.result');
+const scoreDiv = document.querySelector('.score')
+const winnerHeader = document.querySelector('.winner')
+
+// rockBtn.onclick = () => alert('hello world im a js button')
+
+
+
+
+// if (winCount > loseCount) {
+//     console.log('you win the game')
+// } else if (loseCount > winCount) {
+//     console.log('you lose the game')
+// } else {
+//     console.log('its a tie')
+// }
